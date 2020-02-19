@@ -9,27 +9,39 @@ const challengesRouter = require('./challenges');
 const eventsRouter = require('./events');
 const blogsRouter = require('./blogs');
 const paymentRouter = require('./payment');
+const sliderRouter = require('./slider');
+const pageRouter = require('./page');
+
 
 // Dashboard
 router.get('/', function (req, res) {
     res.locals = {  title: 'Dashboard' };
-    res.render('Dashboard/dashboard');
+    // if(req.session.loggedIn){
+        res.render('Dashboard/dashboard');
+    // }
+    // else{
+    //     res.redirect('/login');
+    // }
 });
 // User
 router.use('/', userRouter);
-// Location
+// // Location
 router.use('/', locationRouter);
-// Events
+// // Events
 router.use('/', eventsRouter);
-//Fitness Group
+// //Fitness Group
 router.use('/', fitnessGroupRouter);
-//Company
+// //Company
 router.use('/', companyRouter);
-//Challenges
+// //Challenges
 router.use('/', challengesRouter);
-//Blogs
+// //Blogs
 router.use('/', blogsRouter);
-//payment
+// //payment
 router.use('/', paymentRouter);
+//slider
+router.use('/', sliderRouter);
+//page
+// router.use('/', pageRouter);
 
 module.exports = router;
