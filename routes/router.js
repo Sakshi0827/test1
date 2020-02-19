@@ -9,13 +9,20 @@ const challengesRouter = require('./challenges');
 const eventsRouter = require('./events');
 const blogsRouter = require('./blogs');
 const paymentRouter = require('./payment');
+
 const sliderRouter = require('./slider' );
 const pageRouter = require('./page');
+
 
 // Dashboard
 router.get('/', function (req, res) {
     res.locals = {  title: 'Dashboard' };
-    res.render('Dashboard/dashboard');
+    // if(req.session.loggedIn){
+        res.render('Dashboard/dashboard');
+    // }
+    // else{
+    //     res.redirect('/login');
+    // }
 });
 // User
 router.use('/', userRouter);
@@ -37,4 +44,5 @@ router.use('/', paymentRouter);
 router.use('/', sliderRouter);
 //page
 router.use('/', pageRouter);
+
 module.exports = router;

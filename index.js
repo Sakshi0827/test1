@@ -4,6 +4,7 @@ var path = require('path');
 var http = require('http').Server(app);
 var bCrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 const multer = require('multer');
 const fs = require('fs');
 var router = require('./routes/router.js');
@@ -23,6 +24,7 @@ const Company = require('./models/company');
 const Blogs_category_intermediate = require('./models/blogs_category_intermediate');
 const Page = require('./models/page');
 
+// app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
 
 // Access public folder from root
 app.use('/public', express.static('public'));
@@ -73,9 +75,6 @@ User.hasMany(Page, {foreignKey: "user_id"});
 
 // sequelizeInstance.sync({force:false});
 
-// Add Authentication Route file with app
-app.use('/', Authrouter); 
-
 //For set layouts of html view
 var expressLayouts = require('express-ejs-layouts');
 app.set('views', path.join(__dirname, 'views'));
@@ -83,7 +82,10 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 // Add Route file with app
-app.use('/', router); 
+app.use('/', router);
+
+// Add Authentication Route file with app
+app.use('/', Authrouter);
 
 //server port
 http.listen(3000, function(){

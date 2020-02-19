@@ -84,6 +84,7 @@ exports.delete_slider = function (req, res) {
         }
     }).then((result) => {
         if (result) {
+
             console.log("The slider was deleted.", result);
             return res.json({
                 status: 200,
@@ -116,6 +117,7 @@ exports.edit_slider = function (req, res) {
     try {
         Slider.findAll({ where: { slider_id: req.params.slider_id } }).then(slider => {
             console.log("All slider:", JSON.stringify(slider, null, 4));
+
             return res.render('Slider/edit_slider', {
                 status: 200,
                 data: slider,
@@ -166,6 +168,7 @@ exports.edit_slider_put = function (req, res) {
                             slider_image: req.file.filename,
                         });
                 } else {
+
                     result.update(
                         {
                             slider_title: req.body.slider_title

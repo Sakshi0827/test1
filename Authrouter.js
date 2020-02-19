@@ -65,11 +65,22 @@ Authrouter.get('/pages-lock-screen', function(req, res)
       res.locals = {  title: 'Lock Screen' };
       res.render('Auth/pages_lock_screen');
 });
+
 Authrouter.get('/pages-recoverpw', function(req, res)
 {
       res.locals = {  title: 'Password Recovery' };
       res.render('Auth/pages_recoverpw');
+      //send email for password recovery
 });
+
+
+
+Authrouter.get('/pages-lock-screen', function(req, res)
+{
+      res.locals = {  title: 'Lock Screen' };
+      res.render('Auth/pages_lock_screen');
+});
+
 Authrouter.get('/pages-404', function(req, res)
 {
       res.locals = {  title: '404 Page Error' };
