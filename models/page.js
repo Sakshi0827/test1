@@ -2,7 +2,9 @@ const Sequelize = require('sequelize');
 const sequelize = require('../config/connection');
 
 
-module.exports = sequelize.define("Pages", {
+
+module.exports = sequelize.define("Page", {
+
     page_id: {
             type: Sequelize.INTEGER,
             primaryKey: true,

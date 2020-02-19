@@ -4,10 +4,10 @@ const fs = require('fs');
 
 // slider list
 exports.slider_list = function (req, res) {
-    res.locals = {  title: 'slider List' };
-    try{
-        Slider.findAll({ }).then(slider => {
-        console.log("All slider:", JSON.stringify(slider, null, 4));
+    res.locals = { title: 'slider List' };
+    try {
+        Slider.findAll({}).then(slider => {
+            console.log("All slider:", JSON.stringify(slider, null, 4));
             return res.render('Slider/slider_list', {
                 status: 200,
                 data: slider,
@@ -21,7 +21,7 @@ exports.slider_list = function (req, res) {
                 message: "slider fetching failed."
             })
         })
-    } catch (exception){
+    } catch (exception) {
         console.log("An exception occured, please contact the administrator.", exception);
         return res.json({
             status: 500,
@@ -32,14 +32,14 @@ exports.slider_list = function (req, res) {
 };
 
 // add slider get
-exports.add_slider =  function (req, res) {
-    res.locals = {  title: 'Add slider' };
-     return res.render('Slider/add_slider');           
+exports.add_slider = function (req, res) {
+    res.locals = { title: 'Add slider' };
+    return res.render('Slider/add_slider');
 };
 
 //add slider post
-exports.add_slider_post =  (req, res) =>{
-    res.locals = {  title: 'Add slider' };
+exports.add_slider_post = (req, res) => {
+    res.locals = { title: 'Add slider' };
     console.log('<----------->', req.file);
     Slider.create(
         {
@@ -68,20 +68,23 @@ exports.add_slider_post =  (req, res) =>{
 
 
 // slider delete
-exports.delete_slider = function (req, res){
+exports.delete_slider = function (req, res) {
     console.log(`Attempting to destroy a slider with slider_id ${req.params.slider_id}`);
-    Slider.findOne({ where: {
+    Slider.findOne({
+        where: {
             slider_id: req.params.slider_id
-    }}).then(slider_fetched =>{
-        fs.unlink('uploads/'+ slider_fetched.slider_image,
-            err => {if (err) throw err })
+        }
+    }).then(slider_fetched => {
+        fs.unlink('uploads/' + slider_fetched.slider_image,
+            err => { if (err) throw err })
     });
     Slider.destroy({
         where: {
             slider_id: req.params.slider_id
         }
     }).then((result) => {
-        if(result){
+        if (result) {
+
             console.log("The slider was deleted.", result);
             return res.json({
                 status: 200,
@@ -110,10 +113,11 @@ exports.delete_slider = function (req, res){
 
 // Edit slider get
 exports.edit_slider = function (req, res) {
-    res.locals = {  title: 'Edit slider' };
-    try{
-        Slider.findAll({ where: {slider_id: req.params.slider_id}}).then(slider => {
-        console.log("All slider:", JSON.stringify(slider, null, 4));
+    res.locals = { title: 'Edit slider' };
+    try {
+        Slider.findAll({ where: { slider_id: req.params.slider_id } }).then(slider => {
+            console.log("All slider:", JSON.stringify(slider, null, 4));
+
             return res.render('Slider/edit_slider', {
                 status: 200,
                 data: slider,
@@ -127,7 +131,7 @@ exports.edit_slider = function (req, res) {
                 message: "slider fetching failed."
             })
         });
-    } catch (exception){
+    } catch (exception) {
         console.log("An exception occured, please contact the administrator.", exception);
         return res.json({
             status: 500,
@@ -143,25 +147,28 @@ exports.edit_slider = function (req, res) {
 
 exports.edit_slider_put = function (req, res) {
     console.log("Edit slider put controller", req.body);
-    res.locals = {  title: 'Edit slider' };
+    res.locals = { title: 'Edit slider' };
     // console.log("------------",req.params, req.body);
-    console.log("<----------------->",req.file);
-    Slider.findOne({ where: { slider_id: req.params.slider_id }})
+    console.log("<----------------->", req.file);
+    Slider.findOne({ where: { slider_id: req.params.slider_id } })
         .then((result) => {
-            if(result){
-                if(req.file){
-                    Slider.findOne({ where: {
-                        slider_id: req.params.slider_id
-                    }}).then(slider_fetched =>{
-                        fs.unlink('uploads/'+ slider_fetched.slider_image,
-                            err => {if (err) throw err })
+            if (result) {
+                if (req.file) {
+                    Slider.findOne({
+                        where: {
+                            slider_id: req.params.slider_id
+                        }
+                    }).then(slider_fetched => {
+                        fs.unlink('uploads/' + slider_fetched.slider_image,
+                            err => { if (err) throw err })
                     });
                     result.update(
-                    {
-                        slider_title: req.body.slider_title,
-                        slider_image: req.file.filename,
-                    });
-                }else {
+                        {
+                            slider_title: req.body.slider_title,
+                            slider_image: req.file.filename,
+                        });
+                } else {
+
                     result.update(
                         {
                             slider_title: req.body.slider_title
@@ -182,12 +189,11 @@ exports.edit_slider_put = function (req, res) {
                 })
             }
         }).catch(err => {
-        console.error('Unable to connect to the database:', err);
-        return res.json({
-            status: 500,
-            data: err,
-            message: "slider edit failed."
-        })
-    });
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "slider edit failed."
+            })
+        });
 };
-

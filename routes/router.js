@@ -9,7 +9,8 @@ const challengesRouter = require('./challenges');
 const eventsRouter = require('./events');
 const blogsRouter = require('./blogs');
 const paymentRouter = require('./payment');
-const sliderRouter = require('./slider');
+
+const sliderRouter = require('./slider' );
 const pageRouter = require('./page');
 
 
@@ -39,9 +40,9 @@ router.use('/', challengesRouter);
 router.use('/', blogsRouter);
 // //payment
 router.use('/', paymentRouter);
-//slider
+// slider
 router.use('/', sliderRouter);
 //page
-// router.use('/', pageRouter);
+router.use('/', pageRouter);
 
 module.exports = router;

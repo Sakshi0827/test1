@@ -40,10 +40,15 @@
                             <thead>
                             <tr>
                                 <th>Actions</th>
-                                <th>id</th>
-                                <th>User</th>
+
+                                <th>page id</th>
+                                <th>Page author id</th>
                                 <th>Page Title</th>
-                                <th>Published At</th>
+                                <th>Page Content</th>
+                                <th>Page Image</th>
+                                <th>created_date</th>
+                                <th>updated_date</th>
+
                             </tr>
                             </thead>
 
@@ -60,7 +65,12 @@
                                 <th scope="row"> <%=page.page_id%></th>
                                 <td><%=page.User.username%></td>
                                 <td><%=page.page_title%></td>
+
+                                <td><%=page.page_content%></td>
+                                <td><a href="/<%=page.page_image%>" target="_blank"><img src="<%=page.page_image%>" alt="page Image :)" width="50%"></a></td>
                                 <td><%=page.createdAt%></td>
+                                <td><%=page.updatedAt%></td>
+
                             </tr>
                             <% }) %>
                             </tbody>

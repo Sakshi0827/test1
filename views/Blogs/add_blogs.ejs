@@ -75,7 +75,12 @@
                             </div>
                             <!-- dropzone-->
                             <div>
-                                <img style="width:50%" id="blah" src="#" alt="your image" />
+
+                                <img style="width:50%" id="blah" 
+                                    <% if (data[0]) { %> src="<%=data[0].blogs_image%>" 
+                                    <% } else { %> src="#" <% } %>
+                                     alt="your image" />
+
                             </div>
                             <br>
                             <div>
